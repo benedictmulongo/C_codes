@@ -166,8 +166,10 @@ class Mapping:
         robot_Ypos = pose.pose.position.y - origin.position.y
         
         for i in range(len(scan.ranges)) :
-            if scan.range_min < scan.ranges[i] < scan.range_max :
 
+            if scan.ranges[i] <= scan.range_min or scan.ranges[i] >= scan.range_max:
+                continue 
+            else:
                 x = scan.ranges[i] * np.cos(scan.angle_min +  i* scan.angle_increment + robot_yaw ) + robot_Xpos
                 y = scan.ranges[i] * np.sin(scan.angle_min +  i* scan.angle_increment + robot_yaw ) + robot_Ypos
 
